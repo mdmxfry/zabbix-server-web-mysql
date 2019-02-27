@@ -1,0 +1,15 @@
+#!/usr/bin/python3.6
+
+import asyncio
+import websockets
+
+try:
+	async def hello(uri):
+	    async with websockets.connect(uri) as websocket:
+	        await websocket.send("Check zabbix connect")
+
+	asyncio.get_event_loop().run_until_complete(
+	        hello('wss://backend2.bodr.me/ws'))
+	print(1)
+except:
+	print(1)

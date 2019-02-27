@@ -1,0 +1,45 @@
+#!/usr/bin/python
+
+import requests
+
+URL = 'https://postg1.bodr.me/'
+
+
+GRAPHQL_GET_USER = '''
+query getUser($id: UUID!){
+    user(id: $id) {
+        id,
+            phone,
+            firstName,
+            lastName,
+            name,
+            desc,
+            email,
+            avatar
+    }
+}'''
+
+
+data = {
+    "variables": {'id': '58af0baa-1ecc-4e9f-81bf-1ff2a40f03b4'},
+    "query": GRAPHQL_GET_USER,
+    "operationName": "getUser",
+    "BrowserTabId": "92244341-445e-46e9-a12e-390fa85dff62"
+}
+
+headers = {
+            'Content-Type': 'application/json;charset=UTF-8',
+            'Authorization': 'Bearer JWT: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNDMsImVtYWlsIjoiIiwidXNlcm5hbWUiOiI1OGFmMGJhYS0xZWNjLTRlOWYtODFiZi0xZmYyYTQwZjAzYjQiLCJleHAiOjE1NzMzODkxMjIsInV1aWQiOiI1OGFmMGJhYS0xZWNjLTRlOWYtODFiZi0xZmYyYTQwZjAzYjQifQ.X7UKwSV0TqniaiQCWj_RpLpJvD3MK7k8x2BQvF9JBo0'
+        }
+
+
+try:
+  r = requests.post(URL, json=data, headers=headers)
+
+  if r.json().get('data', {})['current_user']:
+    print(1)
+  else:
+    print(0)
+
+except:
+  print(0)
